@@ -54,5 +54,5 @@ Some data structures can be derived from already implementated data structures.
 
 To use a queue one can simply use the doubly linked list and just use `dll_append` to enque, `dll_remove(list->head)` to deque and `list->length` to check for an empty queue.
 
-For a stack one can use the doubly linked list is a similar manner, but with `dll_remove(list->tail)` to pop from the stack. It is also possible (and probably recommanded) to use a array list instead.
+For a stack one can use the doubly linked list in a similar manner, but with `dll_remove(list->tail)` to pop from the stack. It is also possible (and probably recommanded) to use a array list instead.
 With a nicely conditioned capacity the amount of heap allocations can be minified significantly.
