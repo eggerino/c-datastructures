@@ -41,5 +41,5 @@ The implementation of the hashtable will be included into this translation unit 
 ## Planed
 
 - Double linked list
-- Quere
+- Queue
 - Stack
