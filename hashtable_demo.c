@@ -4,7 +4,7 @@
 #include "hashtable.h"
 
 int main(void) {
-    HashTable* ht = ht_create();
+    HashTable* ht = ht_new();
 
     char* hello = "hello";
     char* world = "world";
@@ -56,6 +56,6 @@ int main(void) {
         printf("%s: %s\n", iter.key, iter.value);
     }
 
-    ht_destroy(ht);
+    ht_delete(ht);
     return 0;
 }

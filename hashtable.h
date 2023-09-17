@@ -22,8 +22,8 @@ typedef struct HashTableIterator {
     size_t index_after;
 } HashTableIterator;
 
-HashTable* ht_create(void);
-void ht_destroy(HashTable* ht);
+HashTable* ht_new(void);
+void ht_delete(HashTable* ht);
 
 void* ht_get(const HashTable* ht, const char* key);
 void* ht_remove(HashTable* ht, const char* key);
@@ -61,7 +61,7 @@ static int ht_increase(HashTable* ht);
 static void ht_insert(HashTable* ht, char* key, void* value, size_t hash);
 static size_t ht_fnv_1a(const char* key);
 
-HashTable* ht_create(void) {
+HashTable* ht_new(void) {
     HashTable* ht = (HashTable*)malloc(sizeof(HashTable));
     // Ensure all keys and values in the array are NULL pointers
     HashTableItem* items = (HashTableItem*)calloc(HASHTABLE_INITIAL_CAPACITY, sizeof(HashTableItem));
@@ -77,7 +77,7 @@ HashTable* ht_create(void) {
     return ht;
 }
 
-void ht_destroy(HashTable* ht) {
+void ht_delete(HashTable* ht) {
     if (ht == NULL) {
         return;
     }

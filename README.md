@@ -27,10 +27,20 @@ ARRAY_LIST_DEFINITION(void*)    // for an array list of pointers
 ```
 The implementation of every specific type will be expanded by these macros into this translation unit and compiled by your compiler.
 
+## Doubly linked list
+
+It is implemented as a [stb-style library](https://github.com/nothings/stb).
+In one source file include the header with the definition macro.
+```C
+#define DOUBLYLINKDEDLIST_DEFINITION
+#include "doublylinkedlist.h"
+```
+The implementation of the doubly linked list will be included into this translation unit and compiled by your compiler.
+
 ## Hash table
 
 The mein idea of the implementation is from this [Blog](https://benhoyt.com/writings/hash-table-in-c/) ([Repo](https://github.com/benhoyt/ht/tree/master)).
-It is implemented as a [stb-style library](https://github.com/nothings/stb).
+It is also implemented as a [stb-style library](https://github.com/nothings/stb).
 In one source file include the header with the definition macro.
 ```C
 #define HASHTABLE_DEFINITION
@@ -38,8 +48,11 @@ In one source file include the header with the definition macro.
 ```
 The implementation of the hashtable will be included into this translation unit and compiled by your compiler.
 
-## Planed
+## Other
 
-- Double linked list
-- Queue
-- Stack
+Some data structures can be derived from already implementated data structures.
+
+To use a queue one can simply use the doubly linked list and just use `dll_append` to enque, `dll_remove(list->head)` to deque and `list->length` to check for an empty queue.
+
+For a stack one can use the doubly linked list is a similar manner, but with `dll_remove(list->tail)` to pop from the stack. It is also possible (and probably recommanded) to use a array list instead.
+With a nicely conditioned capacity the amount of heap allocations can be minified significantly.
