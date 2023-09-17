@@ -27,6 +27,14 @@ ARRAY_LIST_DEFINITION(void*)    // for an array list of pointers
 ```
 The implementation of every specific type will be expanded by these macros into this translation unit and compiled by your compiler.
 
+In the location you want to use the data structure include the header file and use the declaration macro with the desired inner type.
+```C
+#include "arraylist.h"
+ARRAY_LIST_DECLARATION(int)     // for an array list of integers
+ARRAY_LIST_DECLARATION(void*)   // for an array list of pointers
+```
+This will expand to the specific declarations. These can also be grouped in one header file for convenience.
+
 ## Doubly linked list
 
 It is implemented as a [stb-style library](https://github.com/nothings/stb).
@@ -54,5 +62,5 @@ Some data structures can be derived from already implementated data structures.
 
 To use a queue one can simply use the doubly linked list and just use `dll_append` to enque, `dll_remove(list->head)` to deque and `list->length` to check for an empty queue.
 
-For a stack one can use the doubly linked list in a similar manner, but with `dll_remove(list->tail)` to pop from the stack. It is also possible (and probably recommanded) to use a array list instead.
+For a stack one can use the doubly linked list in a similar manner, but with `dll_remove(list->tail)` to pop from the stack. It is also possible (and probably recommanded) to use an array list instead.
 With a nicely conditioned capacity the amount of heap allocations can be minified significantly.
