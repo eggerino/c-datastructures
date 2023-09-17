@@ -13,7 +13,7 @@ Check out the corresponding demo source file on how the use a specific data stru
 
 ## Array list (vector)
 
-One of the advantages of the datastructure is, that every entry in the array list is located next to each other in memory.
+One of the advantages of the data structure is, that every entry in the array list is located next to each other in memory.
 This makes it easy to optimize for performance, since the entire block of memory can be loaded into the cache without derefencing pointers while e.g. iterating over the data.
 To achieve a generic and reuseable implementation of an array list a macro-based aproach is used.
 

@@ -1,0 +1,5 @@
+# Editor specific files
+.vscode/
+
+# default name of compiled demos
+a.out
