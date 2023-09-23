@@ -3,7 +3,6 @@
 
 #include <assert.h>
 #include <stddef.h>
-#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -22,7 +21,7 @@
                                                               \
     ARRAY_LIST(T) * al_of_##T##_new(size_t initial_capacity); \
     void al_of_##T##_delete(ARRAY_LIST(T) * list);            \
-    uint8_t al_of_##T##_add(ARRAY_LIST(T) * list, T item);    \
+    int al_of_##T##_add(ARRAY_LIST(T) * list, T item);        \
     T al_of_##T##_remove(ARRAY_LIST(T) * list);
 
 #define ARRAY_LIST_DEFINITION(T)                                                                                      \
@@ -51,11 +50,11 @@
         free(list);                                                                                                   \
     }                                                                                                                 \
                                                                                                                       \
-    uint8_t al_of_##T##_add(ARRAY_LIST(T) * list, T item) {                                                           \
-        assert(list != NULL && "List pointer must not be null");                                                      \
+    int al_of_##T##_add(ARRAY_LIST(T) * list, T item) {                                                               \
+        assert(list != NULL && "List pointer must not be null. Consider checking for null on creation of the list."); \
                                                                                                                       \
         if (list->length == list->capacity) {                                                                         \
-            size_t capacity = list->capacity + 1;                                                                     \
+            size_t capacity = list->capacity * 2;                                                                     \
             T* data = (T*)malloc(sizeof(T) * capacity);                                                               \
                                                                                                                       \
             if (data == NULL) {                                                                                       \
@@ -76,8 +75,8 @@
     }                                                                                                                 \
                                                                                                                       \
     T al_of_##T##_remove(ARRAY_LIST(T) * list) {                                                                      \
-        assert(list != NULL && "List pointer must not be null");                                                      \
-        assert(list->length > 0 && "List is already empty. Cannot remove any items");                                 \
+        assert(list != NULL && "List pointer must not be null. Consider checking for null on creation of the list."); \
+        assert(list->length > 0 && "List is already empty. Cannot remove any items. Consider checking the length.");  \
                                                                                                                       \
         --list->length;                                                                                               \
         return list->data[list->length];                                                                              \
