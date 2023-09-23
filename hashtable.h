@@ -232,7 +232,7 @@ static size_t ht_fnv_1a(const char* key) {
     size_t prime = 1099511628211UL;
 
     size_t hash = offset;
-    for (const char* c = key; *c; ++c) {
+    for (const char* c = key; c && *c; ++c) {
         hash ^= (size_t)(unsigned char)(*c);
         hash *= prime;
     }
