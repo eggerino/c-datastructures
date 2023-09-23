@@ -2,7 +2,6 @@
 #define DOUBLYLINKEDLIST_H_
 
 #include <stddef.h>
-#include <stdint.h>
 #include <stdlib.h>
 
 typedef struct DoublyLinkedListNode DoublyLinkedListNode;
@@ -23,10 +22,10 @@ struct DoublyLinkedList {
 
 DoublyLinkedList* dll_new(void);
 void dll_delete(DoublyLinkedList* list);
-uint8_t dll_prepend(DoublyLinkedList* list, void* item);
-uint8_t dll_append(DoublyLinkedList* list, void* item);
-uint8_t dll_node_prepend(DoublyLinkedListNode* node, void* item);
-uint8_t dll_node_append(DoublyLinkedListNode* node, void* item);
+int dll_prepend(DoublyLinkedList* list, void* item);
+int dll_append(DoublyLinkedList* list, void* item);
+int dll_node_prepend(DoublyLinkedListNode* node, void* item);
+int dll_node_append(DoublyLinkedListNode* node, void* item);
 void* dll_remove(DoublyLinkedListNode* node);
 
 #endif  // DOUBLYLINKEDLIST_H_
@@ -51,7 +50,8 @@ DoublyLinkedList* dll_new(void) {
 void dll_delete(DoublyLinkedList* list) {
     assert(list != NULL && "List must not be null. Consider checking for null after creation.");
 
-    if (list->head != NULL) {
+    if (list->length > 0) {
+        assert(list->head != NULL && "At least one node is in the list. The head must not be null");
         assert(list->tail != NULL && "At least one node is in the list. The tail must not be null");
 
         DoublyLinkedListNode* node = list->head;
@@ -65,7 +65,9 @@ void dll_delete(DoublyLinkedList* list) {
     free(list);
 }
 
-uint8_t dll_prepend(DoublyLinkedList* list, void* item) {
+int dll_prepend(DoublyLinkedList* list, void* item) {
+    assert(list != NULL && "List must not be null. Consider checking for null after creation.");
+
     DoublyLinkedListNode* node = (DoublyLinkedListNode*)malloc(sizeof(DoublyLinkedListNode));
 
     if (node == NULL) {
@@ -92,7 +94,9 @@ uint8_t dll_prepend(DoublyLinkedList* list, void* item) {
     return 0;
 }
 
-uint8_t dll_append(DoublyLinkedList* list, void* item) {
+int dll_append(DoublyLinkedList* list, void* item) {
+    assert(list != NULL && "List must not be null. Consider checking for null after creation.");
+
     DoublyLinkedListNode* node = (DoublyLinkedListNode*)malloc(sizeof(DoublyLinkedListNode));
 
     if (node == NULL) {
@@ -119,7 +123,9 @@ uint8_t dll_append(DoublyLinkedList* list, void* item) {
     return 0;
 }
 
-uint8_t dll_node_prepend(DoublyLinkedListNode* node, void* item) {
+int dll_node_prepend(DoublyLinkedListNode* node, void* item) {
+    assert(node != NULL && "Node must not be null.");
+
     DoublyLinkedListNode* new_node = (DoublyLinkedListNode*)malloc(sizeof(DoublyLinkedListNode));
 
     if (new_node == NULL) {
@@ -145,7 +151,9 @@ uint8_t dll_node_prepend(DoublyLinkedListNode* node, void* item) {
     return 0;
 }
 
-uint8_t dll_node_append(DoublyLinkedListNode* node, void* item) {
+int dll_node_append(DoublyLinkedListNode* node, void* item) {
+    assert(node != NULL && "Node must not be null.");
+
     DoublyLinkedListNode* new_node = (DoublyLinkedListNode*)malloc(sizeof(DoublyLinkedListNode));
 
     if (new_node == NULL) {
@@ -172,6 +180,7 @@ uint8_t dll_node_append(DoublyLinkedListNode* node, void* item) {
 }
 
 void* dll_remove(DoublyLinkedListNode* node) {
+    assert(node != NULL && "Node must not be null.");
     assert(node->list->length > 0 && "List must not have length of zero.");
 
     --node->list->length;
